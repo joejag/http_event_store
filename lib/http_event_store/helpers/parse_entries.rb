@@ -18,7 +18,13 @@ module HttpEventStore
         type = entry['eventType']
         source_event_uri = entry['id']
         return nil unless entry['data']
-        data = JSON.parse(entry['data'])
+       
+        begin
+          data = JSON.parse(entry['data'])
+        rescue JSON::ParserError
+          return nil
+        end
+
         stream_name = entry['streamId']
         position = entry['positionEventNumber']
         created_time = entry['updated'] ? Time.parse(entry['updated']) : nil

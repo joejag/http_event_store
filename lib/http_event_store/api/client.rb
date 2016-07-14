@@ -52,7 +52,7 @@ module HttpEventStore
         connection.send(method, path) do |req|
           req.headers = req.headers.merge(headers)
           req.body = body.to_json
-          req.params['embed'] = 'body' if method == :get
+          req.params['embed'] = 'TryHarder' if method == :get
         end.body
       end
 
